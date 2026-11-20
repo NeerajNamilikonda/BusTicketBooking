@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bus Ticket Booking</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            background: #243b65;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 25px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        input, button {
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input {
+            width: 95%;
+        }
+
+        button {
+            background: #243b65;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #41649c;
+        }
+
+        .bus {
+            border: 1px solid #ddd;
+            padding: 18px;
+            margin-top: 15px;
+            border-radius: 8px;
+        }
+
+        .price {
+            color: green;
+            font-weight: bold;
+        }
+
+        #results {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Online Bus Ticket Booking</h1>
+    <p>Book your journey easily and comfortably</p>
+</header>
+
+<div class="container">
+
+    <h2>Search Buses</h2>
+
+    <input type="text" id="source" placeholder="Enter Source">
+    <input type="text" id="destination" placeholder="Enter Destination">
+    <input type="date" id="date">
+
+    <button onclick="searchBus()">Search Buses</button>
+
+    <div id="results">
+
+        <h2>Available Buses</h2>
+
+        <div class="bus">
+            <h3>Orange Travels</h3>
+            <p>Source: Hyderabad</p>
+            <p>Destination: Bangalore</p>
+            <p>Departure: 09:00 PM</p>
+            <p>Available Seats: <span id="available">25</span></p>
+            <p class="price">Ticket Price: ₹800</p>
+
+            <label>Select Seat:</label>
+            <select id="seat">
+                <option value="1">Seat 1</option>
+                <option value="2">Seat 2</option>
+                <option value="3">Seat 3</option>
+                <option value="4">Seat 4</option>
+                <option value="5">Seat 5</option>
+            </select>
+
+            <br>
+
+            <button onclick="bookTicket()">Book Ticket</button>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    function searchBus() {
+
+        let source = document.getElementById("source").value.trim().toLowerCase();
+        let destination = document.getElementById("destination").value.trim().toLowerCase();
+        let date = document.getElementById("date").value;
+
+        if (!source || !destination || !date) {
+            alert("Please enter all search details!");
+            return;
+        }
+
+        if (source === "hyderabad" && destination === "bangalore") {
+            document.getElementById("results").style.display = "block";
+        } else {
+            document.getElementById("results").style.display = "none";
+            alert("No buses found for this route!");
+        }
+    }
+
+    let bookedSeats = [];
+
+    function bookTicket() {
+
+        let seat = document.getElementById("seat").value;
+
+        if (bookedSeats.includes(seat)) {
+            alert("This seat is already booked!");
+            return;
+        }
+
+        bookedSeats.push(seat);
+
+        document.getElementById("available").innerText =
+            25 - bookedSeats.length;
+
+        alert("Ticket booked successfully!\nSeat Number: " + seat +
+              "\nTicket Price: ₹800");
+    }
+
+</script>
+
+</body>
+</html>
